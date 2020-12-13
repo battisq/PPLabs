@@ -17,7 +17,6 @@ int main(int argc, char** argv) {
 	int* arr1;
 	int* arr2;
 
-	double time1, time2;
 	int rows = strtoul(argv[1], NULL, 10), cols = rows;
 	int* indices = (int*)calloc (rows, sizeof(int));	// Смещение каждого блока от начала типа
     int* blocklens = (int*)calloc (cols, sizeof(int));	// Кол-во элементов в каждом блоке
@@ -70,10 +69,6 @@ int main(int argc, char** argv) {
 			}
         }
 
-		// printMatrix(arr1, rows, cols);
-
-		time1 = MPI_Wtime();  //Time begining calculating of programm
-
 		MPI_Send(arr1, 1, myType, 1, 1, MPI_COMM_WORLD);
 		MPI_Send(arr1, 1, myType, 1, 2, MPI_COMM_WORLD);
 		
@@ -118,7 +113,7 @@ int main(int argc, char** argv) {
 
 	free(indices); 
 	free(blocklens);
-	free(arr1); 
+	free(arr1);	
 	free(arr2);
 
 	MPI_Type_free(&myType);
